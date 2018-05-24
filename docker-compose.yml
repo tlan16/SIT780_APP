@@ -1,0 +1,6 @@
+version: '2'
+services:
+  sit737_app:
+    build: .
+    ports:
+      - "8080:8080"
