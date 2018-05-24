@@ -9,15 +9,14 @@ class Login extends React.Component {
 
     this.state = {
       formData: {
-        studentId: '',
-        password: '',
+        studentId: 'lanti',
+        password: 'password',
       },
     }
   }
 
   login = event => {
     event.preventDefault()
-    console.log(this.state.formData)
 
     login(this.state.formData.studentId, this.state.formData.password)
       .then(res => {

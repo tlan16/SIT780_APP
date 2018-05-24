@@ -4,6 +4,7 @@ import App from './App'
 import './styles.sass'
 import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import 'react-table/react-table.css'
 
 const reactContainerId = 'react-root'
 
