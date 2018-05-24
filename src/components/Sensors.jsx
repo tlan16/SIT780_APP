@@ -60,10 +60,10 @@ export default class Sensors extends React.Component {
 
     return (
       <div>
+        <h1>Sensors</h1>
         {
           this.state.sensors.length ?
             <ReactTable
-              pageSize={5}
               data={this.state.sensors}
               columns={[
                 {
@@ -123,7 +123,6 @@ export default class Sensors extends React.Component {
             />
             : undefined
         }
-        <br />
       </div>
     )
   }
