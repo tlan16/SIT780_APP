@@ -2,6 +2,7 @@ import React from 'react'
 import Title from './components/Title'
 import Login from "./components/Login"
 import Students from "./components/Students"
+import Sensors from "./components/Sensors"
 
 class App extends React.Component {
   state = {
@@ -22,6 +23,9 @@ class App extends React.Component {
               <span>
                 <h1>Students</h1>
                 <Students
+                  authToken={this.state.authToken}
+                />
+                <Sensors
                   authToken={this.state.authToken}
                 />
               </span>
