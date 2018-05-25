@@ -27,6 +27,14 @@ export default class App extends React.Component {
     localStorage.setItem(localStorageAuthKey, JSON.stringify(auth))
   }
 
+  onLogout = () => {
+    console.log('onLogout')
+    localStorage.clear()
+    this.setState({
+      auth: undefined,
+    })
+  }
+
   hasValidSession = () => {
     const expiry = get(this.state.auth, 'session.expiry', undefined)
     return expiry && (new Date(expiry)) > Date.now()
@@ -39,6 +47,7 @@ export default class App extends React.Component {
       <div className={'container'}>
         <Title
           auth={this.state.auth}
+          onLogout={this.onLogout}
         />
         {
           this.hasValidSession() ?

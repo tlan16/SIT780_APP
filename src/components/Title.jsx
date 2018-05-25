@@ -1,12 +1,12 @@
 import React from 'react'
-import {Jumbotron} from 'react-bootstrap'
+import {Jumbotron, Button} from 'react-bootstrap'
 import moment from 'moment'
 import get from "lodash.get"
 
 class Title extends React.Component {
   styles = {
     Jumbotron: {
-      'padding': '6px 60px 6px 60px',
+      'padding': '6px',
     },
   }
 
@@ -30,9 +30,9 @@ class Title extends React.Component {
     return firstname + lastname
   }
 
-  getIsAdmin = () => {
-    return get(this.props.auth, 'isAdmin', false)
-  }
+  getIsAdmin = () => get(this.props.auth, 'isAdmin', false)
+
+  onLogout = () => this.props.onLogout()
 
   render() {
     return (
@@ -43,7 +43,11 @@ class Title extends React.Component {
               <span>Welcome </span>
               {this.getIsAdmin() ? <i className="text-danger">Admin </i> : undefined}
               <span>{this.getFullname()}</span>
-              <i className="pull-right">Session expire in {this.getSessionLeft().humanize()}</i>
+              <span className="pull-right">
+                <i>Session expire in {this.getSessionLeft().humanize()}</i>
+                <span>  </span>
+                <Button bsSize="xsmall" onClick={this.onLogout}>Logout</Button>
+              </span>
             </Jumbotron>
           ) : undefined
         }
