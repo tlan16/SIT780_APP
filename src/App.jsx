@@ -1,9 +1,12 @@
 import React from 'react'
 import get from 'lodash.get'
-import Title from './components/Title'
+import {Route} from "react-router-dom"
 import Login from "./components/Login"
 import Students from "./components/Students"
 import Sensors from "./components/Sensors"
+import Welcome from "./components/Welcome"
+import Header from './components/Header'
+import Logout from "./components/Logout"
 
 export const localStorageAuthKey = 'auth'
 
@@ -23,12 +26,13 @@ export default class App extends React.Component {
   }
 
   onLogin = auth => {
-    this.setState({auth})
+    this.setState({
+      auth: auth,
+    })
     localStorage.setItem(localStorageAuthKey, JSON.stringify(auth))
   }
 
   onLogout = () => {
-    console.log('onLogout')
     localStorage.clear()
     this.setState({
       auth: undefined,
@@ -40,33 +44,76 @@ export default class App extends React.Component {
     return expiry && (new Date(expiry)) > Date.now()
   }
 
-  render() {
-    const authToken = get(this.state.auth, 'session.token', '')
+  getAuthToken = () => get(this.state.auth, 'session.token', '')
 
+  render() {
     return (
-      <div className={'container'}>
-        <Title
-          auth={this.state.auth}
-          onLogout={this.onLogout}
-        />
-        {
-          this.hasValidSession() ?
-            (
-              <span>
-                <h1>Students</h1>
-                <Students
-                  authToken={authToken}
-                />
-                <Sensors
-                  authToken={authToken}
-                />
-              </span>
-            ) : (
+      <div className={'container-fluid'}>
+        <div>
+          <Route render={({history}) => (
+            <Header
+              history={history}
+              auth={this.state.auth}
+              hasValidSession={this.hasValidSession()}
+              onLogout={this.onLogout}
+            />
+          )} />
+          <Route
+            exact path="/"
+            render={props =>
               <Login
+                {...props}
                 onLogin={this.onLogin}
+                hasValidSession={this.hasValidSession}
               />
-            )
-        }
+            }
+          />
+          <Route
+            path="/students"
+            render={props =>
+              <Students
+                {...props}
+                authToken={this.getAuthToken()}
+              />
+            }
+          />
+          <Route
+            path="/sensors"
+            render={props =>
+              <Sensors
+                {...props}
+                authToken={this.getAuthToken()}
+              />
+            }
+          />
+          <Route
+            path="/welcome"
+            render={props =>
+              <Welcome
+                {...props}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            render={props =>
+              <Login
+                {...props}
+                onLogin={this.onLogin}
+                hasValidSession={this.hasValidSession()}
+              />
+            }
+          />
+          <Route
+            path="/logout"
+            render={props =>
+              <Logout
+                {...props}
+                onLogout={this.onLogout}
+              />
+            }
+          />
+        </div>
       </div>
     )
   }

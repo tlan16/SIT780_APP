@@ -8,7 +8,7 @@ const Dotenv = require('dotenv-webpack')
 module.exports = {
   mode: "development",
   entry: {
-    app: './src/index.js',
+    app: './src/index.jsx',
   },
   output: {
     filename: '[name].bundle.js',
@@ -64,8 +64,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'SIT780',
-      favicon: 'favicon.ico',
+      template: './src/index.html',
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -83,5 +82,6 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true,
+    historyApiFallback: true,
   },
 }

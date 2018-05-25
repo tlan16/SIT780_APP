@@ -3,6 +3,7 @@ import ReactTable from "react-table"
 import {ProgressBar} from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
 import {get as getSensors} from "../services/sensor"
+import {easyFuse} from "../helpers/fuse"
 
 export default class Sensors extends React.Component {
   constructor(props) {
@@ -55,15 +56,16 @@ export default class Sensors extends React.Component {
   }
 
   render() {
-
-    // console.log(this.getScaledRow('temperature'))
-
     return (
       <div>
         <h1>Sensors</h1>
         {
           this.state.sensors.length ?
             <ReactTable
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                easyFuse(String(row[filter.id]), filter.value)
+              }
               data={this.state.sensors}
               columns={[
                 {

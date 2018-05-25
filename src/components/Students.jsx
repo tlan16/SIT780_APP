@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactTable from "react-table"
 import {get as getStudent} from "../services/student"
+import {easyFuse} from "../helpers/fuse"
 import GoogleMapLink from "./GoogleMapLink"
 import EmailLink from "./EmailLink"
 
@@ -26,6 +27,10 @@ class Students extends React.Component {
         {
           this.state.students.length ?
             <ReactTable
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                easyFuse(String(row[filter.id]), filter.value)
+              }
               data={this.state.students}
               columns={[
                 {
