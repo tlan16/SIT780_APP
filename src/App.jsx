@@ -1,4 +1,5 @@
 import React from 'react'
+import get from 'lodash.get'
 import Title from './components/Title'
 import Login from "./components/Login"
 import Students from "./components/Students"
@@ -6,27 +7,36 @@ import Sensors from "./components/Sensors"
 
 class App extends React.Component {
   state = {
-    authToken: undefined,
+    auth: undefined,
   }
 
-  onLogin = authToken => {
-    this.setState({authToken})
+  onLogin = auth => {
+    this.setState({auth})
+  }
+
+  hasValidSession = () => {
+    const expiry = get(this.state.auth, 'session.expiry', undefined)
+    return expiry && (new Date(expiry)) > Date.now()
   }
 
   render() {
+    const authToken = get(this.state.auth, 'session.token', '')
+
     return (
       <div className={'container'}>
-        <Title />
+        <Title
+          auth={this.state.auth}
+        />
         {
-          this.state.authToken ?
+          this.hasValidSession() ?
             (
               <span>
                 <h1>Students</h1>
                 <Students
-                  authToken={this.state.authToken}
+                  authToken={authToken}
                 />
                 <Sensors
-                  authToken={this.state.authToken}
+                  authToken={authToken}
                 />
               </span>
             ) : (
