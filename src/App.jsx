@@ -5,13 +5,26 @@ import Login from "./components/Login"
 import Students from "./components/Students"
 import Sensors from "./components/Sensors"
 
-class App extends React.Component {
+export const localStorageAuthKey = 'auth'
+
+export default class App extends React.Component {
   state = {
     auth: undefined,
   }
 
+  constructor() {
+    super()
+    try {
+      this.state = {
+        auth: JSON.parse(localStorage.getItem(localStorageAuthKey)),
+      }
+    } catch (e) { // ignore}
+    }
+  }
+
   onLogin = auth => {
     this.setState({auth})
+    localStorage.setItem(localStorageAuthKey, JSON.stringify(auth))
   }
 
   hasValidSession = () => {
@@ -49,5 +62,3 @@ class App extends React.Component {
     )
   }
 }
-
-export default App
