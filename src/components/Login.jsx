@@ -10,8 +10,8 @@ export default class Login extends React.Component {
 
     this.state = {
       formData: {
-        studentId: 'lanti',
-        password: 'password',
+        studentId: '',
+        password: '',
         captcha: false,
       },
     }
@@ -76,6 +76,7 @@ export default class Login extends React.Component {
         </Col>
         <Col sm={10}>
           <FormControl
+            required
             type="username"
             placeholder="Student ID"
             onChange={this.onStudentIdChange}
@@ -90,6 +91,7 @@ export default class Login extends React.Component {
         </Col>
         <Col sm={10}>
           <FormControl
+            required
             type="password"
             placeholder="Password"
             onChange={this.onPasswordChange}

@@ -18,7 +18,7 @@ export default class List extends React.Component {
     getStudent(props.authToken)
       .then(res => {
         this.setState({
-          students: Object.values(res.body),
+          students: res.body,
         })
       })
   }
@@ -26,13 +26,15 @@ export default class List extends React.Component {
   render() {
     return (
       <Row>
-        <Col sm={12}>
-          <PageHeader>Students
-            <LinkContainer to="/new_student" className="pull-right">
-              <Button bsSize="large">New Student</Button>
-            </LinkContainer>
-          </PageHeader>
-        </Col>
+        {this.props.isAdmin ? (
+          <Col sm={12}>
+            <PageHeader>Students
+              <LinkContainer to="/new_student" className="pull-right">
+                <Button bsSize="large">New Student</Button>
+              </LinkContainer>
+            </PageHeader>
+          </Col>
+        ) : undefined}
         <hr />
         {
           this.state.students.length ?

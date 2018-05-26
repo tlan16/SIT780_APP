@@ -47,6 +47,8 @@ export default class App extends React.Component {
 
   getAuthToken = () => get(this.state.auth, 'session.token', '')
 
+  getIsAdmin = () => get(this.state.auth, 'isAdmin', false)
+
   render() {
     return (
       <div className={'container-fluid'}>
@@ -94,6 +96,7 @@ export default class App extends React.Component {
                 <List
                   {...props}
                   authToken={this.getAuthToken()}
+                  isAdmin={this.getIsAdmin()}
                 />
                 : <Redirect
                   to={{

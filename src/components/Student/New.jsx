@@ -1,5 +1,5 @@
 import React from 'react'
-import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete'
+import PlacesAutocomplete from 'react-places-autocomplete'
 import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Jumbotron, PageHeader} from 'react-bootstrap'
 import {create} from "../../services/student"
 
@@ -38,13 +38,6 @@ export default class New extends React.Component {
         address: address,
       },
     })
-  }
-
-  handleSelect = (address) => {
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => console.log('Success', latLng))
-      .catch(error => console.error('Error', error))
   }
 
   onStudentIdChange = event => {
@@ -160,7 +153,6 @@ export default class New extends React.Component {
           <PlacesAutocomplete
             value={this.state.formData.address}
             onChange={this.handleChange}
-            onSelect={this.handleSelect}
           >
             {({getInputProps, suggestions, getSuggestionItemProps}) => (
               <div>
