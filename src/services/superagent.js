@@ -2,10 +2,12 @@ import superagent from 'superagent'
 import superagentAbsolute from 'superagent-absolute'
 
 const agent = superagent.agent()
-const baseUrl = process.env.API_URL
-const request = superagentAbsolute(agent)(baseUrl)
+export const BaseUrl = process.env.API_URL
+export const Request = superagentAbsolute(agent)(BaseUrl)
 
-export {
-  request as Request,
-  baseUrl as BaseURl,
-}
+Request.on('error', err => {
+  if (err.status === 403) {
+    localStorage.clear()
+    window.location.href = '/'
+  }
+})

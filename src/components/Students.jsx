@@ -5,7 +5,7 @@ import {easyFuse} from "../helpers/fuse"
 import GoogleMapLink from "./GoogleMapLink"
 import EmailLink from "./EmailLink"
 
-class Students extends React.Component {
+export default class Students extends React.Component {
   constructor(props) {
     super(props)
 
@@ -70,5 +70,3 @@ class Students extends React.Component {
     )
   }
 }
-
-export default Students

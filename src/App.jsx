@@ -1,6 +1,6 @@
 import React from 'react'
 import get from 'lodash.get'
-import {Route} from "react-router-dom"
+import {Redirect, Route} from "react-router-dom"
 import Login from "./components/Login"
 import Students from "./components/Students"
 import Sensors from "./components/Sensors"
@@ -71,27 +71,48 @@ export default class App extends React.Component {
           <Route
             path="/students"
             render={props =>
-              <Students
-                {...props}
-                authToken={this.getAuthToken()}
-              />
+              this.hasValidSession() ?
+                <Students
+                  {...props}
+                  authToken={this.getAuthToken()}
+                />
+                : <Redirect
+                  to={{
+                    pathname: "/login",
+                    state: {from: props.location},
+                  }}
+                />
             }
           />
           <Route
             path="/sensors"
             render={props =>
-              <Sensors
-                {...props}
-                authToken={this.getAuthToken()}
-              />
+              this.hasValidSession() ?
+                <Sensors
+                  {...props}
+                  authToken={this.getAuthToken()}
+                />
+                : <Redirect
+                  to={{
+                    pathname: "/login",
+                    state: {from: props.location},
+                  }}
+                />
             }
           />
           <Route
             path="/welcome"
             render={props =>
-              <Welcome
-                {...props}
-              />
+              this.hasValidSession() ?
+                <Welcome
+                  {...props}
+                />
+                : <Redirect
+                  to={{
+                    pathname: "/login",
+                    state: {from: props.location},
+                  }}
+                />
             }
           />
           <Route
