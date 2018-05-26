@@ -125,6 +125,7 @@ export default class App extends React.Component {
               this.hasValidSession() ?
                 <Welcome
                   {...props}
+                  auth={this.state.auth}
                 />
                 : <Redirect
                   to={{

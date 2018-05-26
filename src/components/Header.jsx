@@ -1,7 +1,6 @@
 import React from 'react'
 import {Nav, Navbar, NavItem} from 'react-bootstrap'
 import {LinkContainer} from "react-router-bootstrap"
-import get from "lodash.get"
 
 export default class Header extends React.Component {
   constructor (props) {
@@ -9,14 +8,6 @@ export default class Header extends React.Component {
     if (!props.hasValidSession)
       props.history.push('/login')
   }
-
-  getFullname = () => {
-    const firstname = get(this.props.auth, 'student.firstname', '')
-    const lastname = get(this.props.auth, 'student.lastname', '')
-    return `${firstname} ${lastname}`
-  }
-
-  getIsAdmin = () => get(this.props.auth, 'isAdmin', false)
 
   wellcome = (
     <Navbar.Header>
@@ -50,20 +41,12 @@ export default class Header extends React.Component {
     </Nav>
   )
 
-  userInfo = (
-    <Navbar.Text pullRight>
-      Signed in as: {this.getFullname()}
-      {this.getIsAdmin() ? <i> (Admin)</i> : undefined}
-    </Navbar.Text>
-  )
-
   render() {
     return (
       <Navbar fluid>
         {this.wellcome}
         {this.props.hasValidSession ? this.tabs : undefined}
         {this.props.hasValidSession ? this.logout : undefined}
-        {this.props.hasValidSession ? this.userInfo : undefined}
       </Navbar>
     )
   }

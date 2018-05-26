@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import Recaptcha from 'react-recaptcha'
 import {Button, Clearfix, Col, ControlLabel, Form, FormControl, FormGroup, Jumbotron} from 'react-bootstrap'
 import {login} from "../services/login"
 
@@ -11,6 +12,7 @@ export default class Login extends React.Component {
       formData: {
         studentId: 'lanti',
         password: 'password',
+        captcha: false,
       },
     }
 
@@ -45,6 +47,15 @@ export default class Login extends React.Component {
       formData: {
         ...this.state.formData,
         password: event.target.value,
+      },
+    })
+  }
+
+  onCaptcha= () => {
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        captcha: true,
       },
     })
   }
@@ -87,9 +98,22 @@ export default class Login extends React.Component {
         </Col>
       </FormGroup>
 
+      <FormGroup controlId="formHorizontalCaptcha">
+        <Col componentClass={ControlLabel} sm={2}>
+          &nbsp;
+        </Col>
+        <Col sm={10}>
+          <Recaptcha
+            sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY}
+            render="explicit"
+            verifyCallback={this.onCaptcha}
+          />
+        </Col>
+      </FormGroup>
+
       <FormGroup>
         <Col smOffset={2} sm={10}>
-          <Button type="submit">Sign in</Button>
+          {this.state.formData.captcha ? <Button type="submit">Sign in</Button> : undefined}
         </Col>
       </FormGroup>
     </Form>
@@ -97,12 +121,12 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <span>
+      <div>
         {this.testUserInfo}
         <Jumbotron>
           {this.getLoginForm()}
         </Jumbotron>
-      </span>
+      </div>
     )
   }
 }
