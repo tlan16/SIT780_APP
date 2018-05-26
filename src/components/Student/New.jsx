@@ -24,23 +24,11 @@ export default class New extends React.Component {
   create = event => {
     event.preventDefault()
 
-    console.log(this.props.authToken)
-    console.log(this.state.formData)
-
     create(this.props.authToken)
       .send(this.state.formData)
       .then(() => {
         this.props.history.push('/students')
       })
-
-    // {studentId: "st", email: "sdf@dsf.com", firstname: "asf", lastname: "asf", address: "12 Dufferin Street, Toronto, ON, Canada"}
-
-    // login(this.state.formData.studentId, this.state.formData.password)
-    //   .then(res => {
-    //     if (res.body && res.text.length)
-    //       this.props.onLogin(res.body)
-    //     this.props.history.push('/welcome')
-    //   })
   }
 
   handleChange = address => {
