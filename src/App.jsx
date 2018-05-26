@@ -2,11 +2,12 @@ import React from 'react'
 import get from 'lodash.get'
 import {Redirect, Route} from "react-router-dom"
 import Login from "./components/Login"
-import Students from "./components/Students"
+import List from "./components/Student/List"
 import Sensors from "./components/Sensors"
 import Welcome from "./components/Welcome"
 import Header from './components/Header'
 import Logout from "./components/Logout"
+import New from "./components/Student/New"
 
 export const localStorageAuthKey = 'auth'
 
@@ -69,10 +70,28 @@ export default class App extends React.Component {
             }
           />
           <Route
+            exact
+            path="/new_student"
+            render={props =>
+              this.hasValidSession() ?
+                <New
+                  {...props}
+                  authToken={this.getAuthToken()}
+                />
+                : <Redirect
+                  to={{
+                    pathname: "/login",
+                    state: {from: props.location},
+                  }}
+                />
+            }
+          />
+          <Route
+            exact
             path="/students"
             render={props =>
               this.hasValidSession() ?
-                <Students
+                <List
                   {...props}
                   authToken={this.getAuthToken()}
                 />

@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactTable from "react-table"
-import {ProgressBar} from 'react-bootstrap'
+import {PageHeader, ProgressBar} from 'react-bootstrap'
 import ReactTooltip from 'react-tooltip'
 import {get as getSensors} from "../services/sensor"
 import {easyFuse} from "../helpers/fuse"
@@ -58,7 +58,7 @@ export default class Sensors extends React.Component {
   render() {
     return (
       <div>
-        <h1>Sensors</h1>
+        <PageHeader>Sensors</PageHeader>
         {
           this.state.sensors.length ?
             <ReactTable

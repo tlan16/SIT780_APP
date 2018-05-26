@@ -74,14 +74,17 @@ module.exports = {
           loader: 'babel-loader',
         },
       ],
+      threads: 4,
     }),
     new Dotenv({
       safe: true,
     }),
   ],
   devServer: {
-    contentBase: './dist',
+    contentBase: path.resolve(__dirname, 'dist'),
     hot: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
   },
 }
