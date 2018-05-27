@@ -11,7 +11,7 @@ export default class Logout extends React.Component {
   render() {
     return (
       <Jumbotron>
-        <h1>You are not logged off</h1>
+        <h1>You are now logged off</h1>
         <Link to="/login"><Button>Click here to login ...</Button></Link>
       </Jumbotron>
     )

@@ -64,7 +64,7 @@ export default class Login extends React.Component {
     <span className="text-right">
       <ReactMarkdown source="**Admin user** username: `lanti`, password: `password`" />
       <Clearfix />
-      <ReactMarkdown source="**Normal user** username: `user`, password: `password`" />
+      <ReactMarkdown source="**Normal user** username: `anna`, password: `password`" />
     </span>
   )
 
@@ -115,7 +115,7 @@ export default class Login extends React.Component {
 
       <FormGroup>
         <Col smOffset={2} sm={10}>
-          {this.state.formData.captcha ? <Button type="submit">Sign in</Button> : undefined}
+          <Button type="submit">Sign in</Button>
         </Col>
       </FormGroup>
     </Form>
